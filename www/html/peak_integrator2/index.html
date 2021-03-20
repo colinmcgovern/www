@@ -1,0 +1,118 @@
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<title>HbA1c Peak Analysis Library</title>
+</head>
+
+<body>
+
+<div class="main">
+
+<h1>HbA1c Peak Analysis Library</h1>
+
+At Sepax Technologies, I wrote the algorithm for our GlyHb-100 machine to turn patient data into a diabetes diagnosis. The GlyHb-100 queues up to hundreds of samples of blood and it one-by-one it runs each sample through one of our HPLC columns. HPLC columns separate the chemicals that a sample is composed of by its properties, for example ionic charge or size. By measuring the absorbance of the sample as it comes out of a column, a chromatagraph is formed. This chromatagraph is a multimodal distrubution. My algorithm separates each distrubution, called a peak, out of the chromatagraph. By comparing the areas of each peak, we can find the a1c %, which tells us whether or not a sample is postive for diabetes.<br><br>
+
+Challenges with this project were:<br> 
+1. Finding the peak areas accurately. The area ratio results need to be within 0.01% of the actual value.<br>
+2. Labeling the peaks with the correct blood marker names.<br>
+3. Making the library rarely fail and never crash.<br>
+4. Having the average latency of the algorithm be around 2000 ms. This was especially difficult, because fitting the curve's model formula to the sample points needs non-linear regression.<br>
+5. Having the results be repeatable. The same sample ran mulitple times should yeild the same result.<br><br>
+
+<table><tr><td>
+	<div class="figure">
+		<a data-fancybox="gallery" href="debugger.png"><img src="debugger.png"></a><br>
+		Screenshot of debugger used by myself and fellow engineers</a>
+	</div>
+	</td><td>
+	<div class="figure">
+		<a data-fancybox="gallery" href="screen.png"><img src="screen.png"></a><br>
+		Screenshot of GlyHb-100 machine GUI
+	</div>
+	</td><td>
+	<div class="figure">
+		<a data-fancybox="gallery" href="biorad.jpg"><img src="biorad.jpg"></a><br>
+		A similar machine called the "VARIANT II TURBO Hemoglobin Testing System". The GlyHb-100's design is not yet public. 
+	</div>
+	</td><td>
+	<div class="figure">
+		<a data-fancybox="gallery" href="columns.png"><img src="columns.png"></a><br>
+		HPLC columns 
+	</div>
+	</td><td>
+	<div class="figure">
+		<a data-fancybox="gallery" href="graph.jpg"><img src="graph.jpg"></a><br>
+		How a chromotograph forms 
+	</div>
+</td></tr></table>
+
+<div class="example">
+	<h2>Example 1</h2>
+	<h3>Input Data</h3>
+	<a data-fancybox="gallery" href="visuals/8_6_and_7/start.jpg"><img src="visuals/8_6_and_7/start.jpg"></a>
+	<h3>Output Graph On Machine</h3>
+	<a data-fancybox="gallery" href="visuals/8_6_and_7/real.png"><img src="visuals/8_6_and_7/real.png"></a>
+	<h3>Debugging Graph</h3>
+	<a data-fancybox="gallery" href="visuals/8_6_and_7/debug.png"><img src="visuals/8_6_and_7/debug.png"></a>
+	<h3>Video Of Analysis</h3>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/Jkv0aaiHtIY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<br>
+<div class="example">
+	<h2>Example 2</h2>
+	<h3>Input Data</h3>
+	<a data-fancybox="gallery" href="visuals/bin_han/start.jpg"><img src="visuals/bin_han/start.jpg"></a>
+	<h3>Output Graph On Machine</h3>
+	<a data-fancybox="gallery" href="visuals/bin_han/real.png"><img src="visuals/bin_han/real.png"></a>
+	<h3>Debugging Graph</h3>
+	<a data-fancybox="gallery" href="visuals/bin_han/debug.png"><img src="visuals/bin_han/debug.png"></a>
+	<h3>Video Of Analysis</h3>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/nbyutFl-Od4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<br>	
+<div class="example">
+	<h2>Example 3</h2>
+	<h3>Input Data</h3>
+	<a data-fancybox="gallery" href="visuals/cc2/start.jpg"><img src="visuals/cc2/start.jpg"></a>
+	<h3>Output Graph On Machine</h3>
+	<a data-fancybox="gallery" href="visuals/cc2/real.png"><img src="visuals/cc2/real.png"></a>
+	<h3>Debugging Graph</h3>
+	<a data-fancybox="gallery" href="visuals/cc2/debug.png"><img src="visuals/cc2/debug.png"></a>
+	<h3>Video Of Analysis</h3>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/zWTcF1fcbiI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>	
+<br>	
+<div class="example">
+	<h2>Example 4</h2>
+	<h3>Input Data</h3>
+	<a data-fancybox="gallery" href="visuals/lab_results/start.jpg"><img src="visuals/lab_results/start.jpg"></a>
+	<h3>Output Graph On Machine</h3>
+	<a data-fancybox="gallery" href="visuals/lab_results/real.png"><img src="visuals/lab_results/real.png"></a>
+	<h3>Debugging Graph</h3>
+	<a data-fancybox="gallery" href="visuals/lab_results/debug.png"><img src="visuals/lab_results/debug.png"></a>
+	<h3>Video Of Analysis</h3>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/mcCe1yEiwdc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<br>	
+<div class="example">
+	<h2>Example 5</h2>
+	<h3>Input Data</h3>
+	<a data-fancybox="gallery" href="visuals/Mid_December/start.jpg"><img src="visuals/Mid_December/start.jpg"></a>
+	<h3>Output Graph On Machine</h3>
+	<a data-fancybox="gallery" href="visuals/Mid_December/real.png"><img src="visuals/Mid_December/real.png"></a>
+	<h3>Debugging Graph</h3>
+	<a data-fancybox="gallery" href="visuals/Mid_December/debug.png"><img src="visuals/Mid_December/debug.png"></a>
+	<h3>Video Of Analysis</h3>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/MDUcDrRKMlc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+
+<br>
+<br>
+<div class="footer">2021 Colin McGovern. Feel free to copy.</div>
+</div></div></body>
